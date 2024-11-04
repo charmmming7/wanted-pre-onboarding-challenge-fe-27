@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "rootDir": "./src",
+    "allowJs": true,
+    "strict": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src"]
+}
