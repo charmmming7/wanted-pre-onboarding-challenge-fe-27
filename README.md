@@ -3,6 +3,7 @@
 ## 환경
 
 Node v.20+
+
 Yarn v.1.22.0+
 
 ## 설치
@@ -12,6 +13,7 @@ Yarn v.1.22.0+
 ```bash
 yarn install
 ```
+<br />
 
 ## backend
 
@@ -23,6 +25,7 @@ yarn install
 ```bash
 yarn start
 ```
+<br />
 
 ## frontend
 
