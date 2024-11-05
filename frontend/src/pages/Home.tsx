@@ -1,38 +1,44 @@
+import { getTodos } from '@/api/useApi';
 import TodoList, { TodoItemProps } from '@/components/Todo/TodoList';
-import { Button } from '@/components/ui/button';
-
-const todolist: TodoItemProps[] = [
-  {
-    title: 'hi',
-    content: 'hello',
-    id: 'z3FGrcRL55qDCFnP4KRtn',
-    createdAt: '2022-07-24T14:15:55.537Z',
-    updatedAt: '2022-07-24T14:15:55.537Z',
-  },
-  {
-    title: 'hi',
-    content: 'hello',
-    id: 'z3FGrcRL55qDCFnP4KRtn1',
-    createdAt: '2022-07-24T14:15:55.537Z',
-    updatedAt: '2022-07-24T14:15:55.537Z',
-  },
-];
-
-// const todos: TodoItem[] = await getTodos();
-// console.log(todos); // 바로 배열로 접근
+import { buttonVariants } from '@/components/ui/button';
+import cx from 'classnames';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const [todos, setTodos] = useState<TodoItemProps[]>([]);
+
+  useEffect(() => {
+    // fetchTodos를 useEffect 내부/외부에 두는 것 차이점?
+    const fetchTodos = async () => {
+      try {
+        const fetchedTodos: TodoItemProps[] = await getTodos();
+        setTodos(fetchedTodos);
+      } catch (error) {
+        console.error('Todos 가져오기 실패:', error);
+      }
+    };
+
+    fetchTodos();
+  }, []);
+
   return (
-    <div className="m-auto flex h-screen max-w-2xl flex-col p-6 text-center">
-      <div className="mb-5">
-        <h1>TODO LIST</h1>
-        <div className="flex w-full">
-          <Button className="ms-auto">+ 추가</Button>
+    <>
+      <div className="mb-5 text-center">
+        <div className="relative w-full">
+          <h1>TODO LIST</h1>
+
+          <Link
+            to="/todo/add"
+            className={cx(buttonVariants(), 'absolute right-0 top-0')}
+          >
+            + 추가
+          </Link>
         </div>
       </div>
 
-      <TodoList data={todolist} />
-    </div>
+      <TodoList data={todos} />
+    </>
   );
 };
 

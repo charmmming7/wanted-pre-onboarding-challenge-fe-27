@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
@@ -18,10 +18,9 @@ export interface TodoListProps {
 
 const TodoItem = ({ data }: { data: TodoItemProps }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const handleEditToggle = () => setIsEditing(!isEditing);
 
   return (
-    <Card className="flex flex-row justify-between gap-2 p-4">
+    <Card className="flex h-auto flex-row justify-between gap-2 p-4">
       <Link
         to={`/todo/${data.id}`}
         className="flex-1 overflow-hidden truncate overflow-ellipsis whitespace-nowrap text-left leading-9"
@@ -29,7 +28,7 @@ const TodoItem = ({ data }: { data: TodoItemProps }) => {
         {data.title}
       </Link>
 
-      <div className="flex flex-shrink-0">
+      <div className="flex flex-shrink-0 gap-1">
         <Button
           variant="destructive"
           size="icon"
@@ -37,26 +36,28 @@ const TodoItem = ({ data }: { data: TodoItemProps }) => {
           <span className="blind">삭제</span>
           <Trash2 />
         </Button>
-        <Button
-          onClick={handleEditToggle}
-          size="icon"
+
+        <Link
+          to={`/todo/${data.id}`}
+          className={buttonVariants({ size: 'icon' })}
         >
           <span className="blind">수정</span>
           <Pencil />
-        </Button>
+        </Link>
       </div>
     </Card>
   );
 };
 
+// TODO: { data }: TodoListProps에서 TodoItemProps[] 를 타입으로 지정해주면 오류나는 이유?
 const TodoList = ({ data }: TodoListProps) => {
-  console.log(data);
   return (
-    <Card className="mt-2 h-full w-full overflow-y-auto bg-zinc-100">
+    <Card className="mt-2 min-h-20 w-full overflow-y-auto bg-zinc-100">
       <CardContent className="flex flex-col gap-3 pt-6">
         {data &&
           data.length > 0 &&
           data.map((item: TodoItemProps, i: number) => {
+            console.log(item);
             return (
               <TodoItem
                 data={item}

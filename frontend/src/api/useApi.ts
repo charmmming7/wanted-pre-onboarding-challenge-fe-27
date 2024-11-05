@@ -49,7 +49,7 @@ export const getTodos = async () => {
 
 export const getTodoById = async (id: string) => {
   const response = await api.get(`/todos/${id}`);
-  return response.data;
+  return response.data.data;
 };
 
 export const createTodo = async (title: string, content: string) => {
@@ -58,6 +58,7 @@ export const createTodo = async (title: string, content: string) => {
 };
 
 export const updateTodo = async (id: string, title: string, content: string) => {
+  console.log(content);
   const response = await api.put(`/todos/${id}`, { title, content });
   return response.data;
 };
