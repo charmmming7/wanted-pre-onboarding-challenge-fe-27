@@ -1,12 +1,18 @@
+import Header from '@/components/Header';
+import { Toaster } from '@/components/ui/toaster';
 import { Outlet } from 'react-router-dom';
 
-const Layout = ({ children }: any) => {
+const Layout = () => {
   return (
-    <div className="m-auto flex h-screen max-w-2xl flex-col p-6 text-center">
-      <div className="">
-        <Outlet />
+    <>
+      <div className="m-auto flex h-screen max-w-2xl flex-col">
+        <Header />
+        <main className="h-full w-full py-3">
+          <Outlet />
+        </main>
       </div>
-    </div>
+      <Toaster />
+    </>
   );
 };
 
