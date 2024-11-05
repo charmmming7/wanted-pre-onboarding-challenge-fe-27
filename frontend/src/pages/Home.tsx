@@ -8,17 +8,16 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [todos, setTodos] = useState<TodoItemProps[]>([]);
 
-  useEffect(() => {
-    // fetchTodos를 useEffect 내부/외부에 두는 것 차이점?
-    const fetchTodos = async () => {
-      try {
-        const fetchedTodos: TodoItemProps[] = await getTodos();
-        setTodos(fetchedTodos);
-      } catch (error) {
-        console.error('Todos 가져오기 실패:', error);
-      }
-    };
+  const fetchTodos = async () => {
+    try {
+      const fetchedTodos: TodoItemProps[] = await getTodos();
+      setTodos(fetchedTodos);
+    } catch (error) {
+      console.error('Todos 가져오기 실패:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchTodos();
   }, []);
 
@@ -29,7 +28,7 @@ const Home = () => {
           <h1>TODO LIST</h1>
 
           <Link
-            to="/todo/add"
+            to="/add"
             className={cx(buttonVariants(), 'absolute right-0 top-0')}
           >
             + 추가

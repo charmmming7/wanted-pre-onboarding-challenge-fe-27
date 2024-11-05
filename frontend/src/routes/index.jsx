@@ -26,21 +26,22 @@ const router = createBrowserRouter([
       {
         path: 'todo',
         element: <TodoDetail />,
-        label: '투두리스트 상세페이지',
         errorElement: <ErrorPage />,
         children: [
           {
             path: ':id',
             element: <TodoDetail />,
-          },
-          {
-            path: 'add',
-            element: <AddTodo />,
+            label: '투두리스트 상세페이지',
           },
         ],
       },
       {
-        path: '/auth',
+        path: 'add',
+        element: <AddTodo />,
+        label: '투두리스트 추가하기',
+      },
+      {
+        path: 'auth',
         element: <Auth />,
         label: '로그인/회원가입',
       },

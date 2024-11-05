@@ -20,8 +20,6 @@ const Header = () => {
     if (!_isLoggedIn) {
       navigate('/auth');
     }
-
-    console.log('로그인상태: ', isLoggedIn, localStorage);
   }, [navigate, isLoggedIn]);
 
   return (
