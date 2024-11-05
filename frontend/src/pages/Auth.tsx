@@ -14,6 +14,10 @@ const Auth = () => {
   const { toast } = useToast();
   const { confirmToast } = useShowConfirmToast();
 
+  const goToMain = () => {
+    navigate('/');
+  };
+
   // 회원가입
   const handleSubmit: SubmitHandler<z.infer<typeof AuthSchema>> = async (data) => {
     console.log(data);
@@ -34,10 +38,6 @@ const Auth = () => {
     }
   };
 
-  const goToMain = () => {
-    navigate('/');
-  };
-
   // 로그인
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>, data: LoginParams) => {
     e.preventDefault();
@@ -48,13 +48,14 @@ const Auth = () => {
 
       confirmToast({
         title: res.message,
-        callbackConfirm: goToMain,
+        callbackConfirm: () => goToMain,
         showCancel: false,
+        duration: 1000,
       });
 
       setTimeout(() => {
         goToMain();
-      }, 3000);
+      }, 1000);
     } catch (error) {
       console.error('로그인 실패:', error);
       toast({
