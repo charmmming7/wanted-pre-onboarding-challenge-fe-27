@@ -36,7 +36,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
       'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-      'react/react-in-jsx-scope': 'off', // React 17 이상에서 임포트를 강제하지 않도록 설정
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ];

@@ -10,5 +10,6 @@
   "trailingComma": "es5",
   "singleAttributePerLine": true,
   "arrowParens": "always",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
