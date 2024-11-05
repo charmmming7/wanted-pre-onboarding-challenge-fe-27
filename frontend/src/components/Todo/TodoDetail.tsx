@@ -1,4 +1,4 @@
-import { getTodoById, updateTodo } from '@/api/useApi';
+import { deleteTodo, getTodoById, updateTodo } from '@/api/useApi';
 import { TodoItemProps } from '@/components/Todo/TodoList';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,7 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Check, Clock, Pencil, Trash2 } from 'lucide-react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useShowConfirmToast } from '@/hooks/useComfirmToast';
 
 const formatToKoreanDate = (isoDate: string): string => {
   const date = new Date(isoDate);
@@ -18,7 +19,10 @@ const formatToKoreanDate = (isoDate: string): string => {
 };
 
 const TodoDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams<{ id?: string }>();
+
+  const { confirmToast } = useShowConfirmToast();
 
   const [isEditing, setIsEditing] = useState(false);
   const handleEditToggle = () => setIsEditing(!isEditing);
@@ -29,6 +33,10 @@ const TodoDetail = () => {
     createdAt: '',
     updatedAt: '',
   });
+
+  const goToMain = () => {
+    navigate('/');
+  };
 
   const handleChangeTitle = (value: string) => {
     setData({
@@ -61,6 +69,26 @@ const TodoDetail = () => {
       console.error('Todos 가져오기 실패:', error);
     } finally {
       fetchTodo();
+    }
+  };
+
+  const handleDeleteTodo = () => {
+    confirmToast({
+      title: '할 일을 삭제하시겠습니까?',
+      callbackConfirm: fetchDeleteTodo,
+      showCancel: true,
+    });
+  };
+
+  const fetchDeleteTodo = async () => {
+    try {
+      const response = await deleteTodo(data.id);
+      console.log(response);
+      setData(response);
+    } catch (error) {
+      console.error('Todos 삭제 실패:', error);
+    } finally {
+      goToMain();
     }
   };
 
@@ -106,24 +134,23 @@ const TodoDetail = () => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col">
-            <div>
-              {!isEditing ? (
-                <p className="min-h-[60px] px-3 py-2">{data?.content}</p>
-              ) : (
-                <div className="flex w-full flex-col">
-                  <Textarea
-                    id="content"
-                    placeholder="내용을 입력해주세요"
-                    value={data?.content || ''}
-                    onChange={(e) => handleChangeContent(e.target.value)}
-                  />
-                </div>
-              )}
-            </div>
+            {!isEditing ? (
+              <p className="min-h-[60px] px-3 py-2">{data?.content}</p>
+            ) : (
+              <div className="flex w-full flex-col">
+                <Textarea
+                  id="content"
+                  placeholder="내용을 입력해주세요"
+                  value={data?.content || ''}
+                  onChange={(e) => handleChangeContent(e.target.value)}
+                />
+              </div>
+            )}
             <div className="ms-auto mt-4 flex gap-1">
               <Button
                 variant="destructive"
                 size="icon"
+                onClick={handleDeleteTodo}
               >
                 <span className="blind">삭제</span>
                 <Trash2 />
