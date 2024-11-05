@@ -2,16 +2,17 @@
 
 ## 환경
 
-Node v.20+
+Node v.20+<br />
 Yarn v.1.22.0+
 
 ## 패키지 정보
 
-React v.18.3.1
-react-dom v.18.3.1
-Vite v.5.4.10
-Tailwind CSS v.3.4.14
-shadcn/ui v.0.0.4
+React v.18.3.1<br />
+react-dom v.18.3.1<br />
+Vite v.5.4.10<br />
+Tailwind CSS v.3.4.14<br />
+shadcn/ui v.0.0.4<br />
+[Lucide Icon](https://lucide.dev/icons) v.0.454<br />
 
 ## 설치
 
