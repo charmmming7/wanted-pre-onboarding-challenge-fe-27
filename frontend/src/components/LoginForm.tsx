@@ -11,7 +11,7 @@ import { z } from 'zod';
 
 type LoginFormProps = {
   onSubmit: SubmitHandler<z.infer<typeof AuthSchema>>;
-  onLogin: (data: LoginParams) => void;
+  onLogin: (e: React.MouseEvent<HTMLButtonElement>, data: LoginParams) => void;
 };
 
 type LoginFormInputs = z.infer<typeof AuthSchema>; // 타입 추론
@@ -29,16 +29,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onLogin }) => {
   const {
     handleSubmit,
     control,
+    getValues,
     formState: { errors, isValid },
   } = form;
 
   useEffect(() => {
     console.log(form);
   }, [form]);
-
-  function getValues(): LoginParams {
-    throw new Error('Function not implemented.');
-  }
 
   return (
     <>
@@ -50,10 +47,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onLogin }) => {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="w-full space-y-6"
-            >
+            <form className="w-full space-y-6">
               <FormField
                 control={control}
                 name="email"
@@ -96,15 +90,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, onLogin }) => {
                 <Button
                   type="submit"
                   variant="outline"
+                  disabled={!isValid}
                 >
                   회원가입
                 </Button>
 
                 <Button
-                  onClick={() => {
+                  onClick={(e) => {
                     if (isValid) {
                       // 유효성 검사 통과 시에만 onLogin 호출
-                      onLogin(getValues());
+                      // onLogin(getValues());
+                      const values = getValues();
+                      onLogin(e, values);
                     }
                   }}
                   className="w-full"

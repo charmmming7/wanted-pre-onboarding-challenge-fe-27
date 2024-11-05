@@ -5,12 +5,14 @@ const ProtectedRoute = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(localStorage);
     const isLoggedIn = localStorage.getItem('token');
 
     if (!isLoggedIn) {
       navigate('/auth'); // 로그인 페이지로 리다이렉트
+    } else {
+      navigate('/');
     }
-    console.log(localStorage);
   }, [navigate]);
 
   return <>{children}</>;

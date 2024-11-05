@@ -2,18 +2,17 @@ import { login, signUp } from '@/api/useApi';
 import LoginForm from '@/components/LoginForm';
 import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/hooks/use-toast';
+import { useShowConfirmToast } from '@/hooks/useComfirmToast';
 import { AuthSchema } from '@/schema';
 import { LoginParams } from '@/store/useAuthStore';
 import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { useShowConfirmToast } from '@/hooks/useComfirmToast';
 
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { confirmToast } = useShowConfirmToast();
-  // const [result, setResult] = useState<any>(null);
 
   // 회원가입
   const handleSubmit: SubmitHandler<z.infer<typeof AuthSchema>> = async (data) => {
@@ -52,6 +51,10 @@ const Auth = () => {
         callbackConfirm: goToMain,
         showCancel: false,
       });
+
+      setTimeout(() => {
+        goToMain();
+      }, 3000);
     } catch (error) {
       console.error('로그인 실패:', error);
       toast({
