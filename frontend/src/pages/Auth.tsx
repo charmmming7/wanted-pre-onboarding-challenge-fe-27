@@ -4,7 +4,7 @@ import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/hooks/use-toast';
 import { useShowConfirmToast } from '@/hooks/useComfirmToast';
 import { AuthSchema } from '@/schema';
-import { LoginParams } from '@/store/useAuthStore';
+import { LoginParams } from '@/types/auth';
 import { SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';

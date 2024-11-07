@@ -1,5 +1,5 @@
+import { LoginParams } from '@/types/auth';
 import axios from 'axios';
-import { LoginParams } from './../store/useAuthStore';
 
 const API_URL = 'http://localhost:8080';
 
