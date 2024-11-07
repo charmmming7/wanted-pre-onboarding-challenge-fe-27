@@ -7,7 +7,8 @@
     "build": "yarn build:backend && yarn build:frontend ",
     "dev": "concurrently \"yarn dev:backend\" \"yarn dev:frontend\"",
     "dev:frontend": "cd frontend && yarn dev",
-    "dev:backend": "cd backend && yarn dev"
+    "dev:backend": "cd backend && yarn dev",
+    "vercel": "vercel --prod"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
