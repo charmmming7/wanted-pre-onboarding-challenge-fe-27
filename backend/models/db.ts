@@ -18,8 +18,9 @@ export let db: Low<Data>;
 
 export const initDatabase = async () => {
   // Use JSON file for storage
-  const dbFolderPath = join(__dirname, "./db");
-  const filePath = join(__dirname, "./db/db.json");
+  // const dbFolderPath = join(__dirname, "./db");
+  const dbFolderPath = path.resolve(__dirname, "./db");
+  const filePath = path.resolve(__dirname, "./db/db.json");
   const dbFolder = await fs.readdir(dbFolderPath).catch(() => void 0);
   const file = await fs.readFile(filePath).catch(() => void 0);
 
