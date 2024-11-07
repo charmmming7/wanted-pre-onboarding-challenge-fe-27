@@ -1,0 +1,16 @@
+{
+  "name": "wanted-pre-onboarding-challenge-fe",
+  "version": "1.0.0",
+  "scripts": {
+    "build:frontend": "cd frontend && yarn build",
+    "build:backend": "cd backend && yarn build",
+    "build": "yarn build:backend && yarn build:frontend ",
+    "dev": "concurrently \"yarn dev:backend\" \"yarn dev:frontend\"",
+    "dev:frontend": "cd frontend && yarn dev",
+    "dev:backend": "cd backend && yarn dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "dependencies": {}
+}
